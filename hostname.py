@@ -32,7 +32,21 @@ def hostname():
     }
 
     response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(username,password)).json()
-    print "New hostname has been successfully pushed to the switch"
+
+    payload2={
+      "ins_api": {
+        "version": "1.0",
+        "type": "cli_show",
+        "chunk": "0",
+        "sid": "1",
+        "input": "show hostname",
+        "output_format": "json"
+      }
+    }
+
+    response2 = requests.post(url,data=json.dumps(payload2), headers=myheaders,auth=(username,password)).json()
+    new_name = str(response2[u'ins_api'][u'outputs'][u'output'][u'body'][u'hostname'])
+    print ("New hostname has been successfully pushed to the switch and is now " + new_name.upper())
 
 if __name__=="__main__":
     hostname()
