@@ -19,7 +19,7 @@ def add_hostname():
       }
     }
 
-    response = requests.post(url, data=json.dumps(payload), headers=myheaders, auth=(username,password)).json()
+    response = requests.post(url, data=json.dumps(payload), headers=myheaders, auth=(switchuser, switchpassword)).json()
     print(response)
 
 def add_admin_account():
